@@ -1,22 +1,33 @@
 package ru.usersshow.SpringBoot.model;
 
-
-import jakarta.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     @Column(name = "name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
 
